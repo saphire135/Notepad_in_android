@@ -4,7 +4,10 @@ package com.fareye.divyanshu.notepad.encryptDecrypt;
  * Created by diyanshu on 9/8/17.
  */
 
+import android.util.Log;
+
 import java.security.Key;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -28,13 +31,13 @@ public class EncryptDecrypt {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return "sdjhd";
         }
     }
 
     public String decrypt(String text) {
         try {
-
+            Log.d("In ENCRYPTDECRYPT",text);
             String key = "Bar12345Bar12345"; // 128 bit key
 
             // Create key and cipher
@@ -43,17 +46,16 @@ public class EncryptDecrypt {
 
             // encrypt the text
             cipher.init(Cipher.DECRYPT_MODE, aesKey);
-            String decrypted = new String(cipher.doFinal(text.getBytes()));
+            byte[] decrypted = cipher.doFinal(text.getBytes());
 
-            return decrypted;
+            Log.d("In ENCRYPTDECRYPT",new String(decrypted));
+            return new String(decrypted);
             // decrypt the text
 
         } catch (Exception e) {
+
             e.printStackTrace();
-            return null;
+            return "sdjhd";
         }
     }
-
-
-
 }

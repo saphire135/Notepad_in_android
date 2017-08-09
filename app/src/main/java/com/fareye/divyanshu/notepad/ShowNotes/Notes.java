@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,8 @@ import com.fareye.divyanshu.notepad.R;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class Notes extends AppCompatActivity {
 
@@ -26,6 +29,8 @@ public class Notes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+
         listView = (ListView) findViewById(R.id.listview);
         addaNote = (Button) findViewById(R.id.button);
         password = (EditText) findViewById(R.id.editText3);
@@ -50,7 +55,17 @@ public class Notes extends AppCompatActivity {
 
         listView.setAdapter(arrayAdapter);
 
-        
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Intent intent = new Intent(Notes.this, YourNote.class);
+                String entry = (String) parent.getItemAtPosition(position);
+                Log.d("ListView",entry);
+                intent.putExtra(EXTRA_MESSAGE, entry);
+                startActivity(intent);
+            }
+        });
 
         addaNote.setOnClickListener(new View.OnClickListener() {
 
@@ -58,7 +73,10 @@ public class Notes extends AppCompatActivity {
             public void onClick(View view) {
                 if (password.getText().toString().equals("123456")) {
                     Log.d("AddaNote is working", "going to yournote class");
-                    startActivity(new Intent(Notes.this, YourNote.class));
+                    Intent intent = new Intent(Notes.this, YourNote.class);
+                    intent.putExtra(EXTRA_MESSAGE, "");
+                    startActivity(intent);
+
                 }
             }
         });
