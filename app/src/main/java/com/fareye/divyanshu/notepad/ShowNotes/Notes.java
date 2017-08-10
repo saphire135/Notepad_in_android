@@ -76,7 +76,6 @@ public class Notes extends AppCompatActivity {
                     Intent intent = new Intent(Notes.this, YourNote.class);
                     intent.putExtra(EXTRA_MESSAGE, "");
                     startActivity(intent);
-
                 }
             }
         });
