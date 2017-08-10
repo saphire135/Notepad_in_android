@@ -4,6 +4,7 @@ package com.fareye.divyanshu.notepad.encryptDecrypt;
  * Created by diyanshu on 9/8/17.
  */
 
+import android.util.Base64;
 import android.util.Log;
 
 import java.security.Key;
@@ -25,9 +26,8 @@ public class EncryptDecrypt {
             // encrypt the text
             cipher.init(Cipher.ENCRYPT_MODE, aesKey);
             byte[] encrypted = cipher.doFinal(text.getBytes());
-            return (new String(encrypted));
+            return (Base64.encodeToString(encrypted,Base64.DEFAULT));
 
-            // decrypt the text
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class EncryptDecrypt {
 
             // encrypt the text
             cipher.init(Cipher.DECRYPT_MODE, aesKey);
-            byte[] decrypted = cipher.doFinal(text.getBytes());
+            byte[] decrypted = cipher.doFinal(Base64.decode(text.getBytes(), Base64.DEFAULT));
 
             Log.d("In ENCRYPTDECRYPT",new String(decrypted));
             return new String(decrypted);

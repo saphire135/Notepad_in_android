@@ -1,37 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fareye.divyanshu.notepad.ShowNotes.YourNote">
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="368dp"
-        android:layout_height="398dp"
-        android:ems="10"
-        android:hint="Add your Notes"
-        android:inputType="textMultiLine"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="58dp" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        android:text="Save"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="456dp" />
+    android:orientation="vertical"
+    tools:context="com.fareye.divyanshu.notepad.ShowNotes.YourNote"
+    android:weightSum="1">
 
     <EditText
         android:id="@+id/editText2"
-        android:layout_width="355dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:ems="10"
         android:hint="Add your TITLE here"
         android:inputType="textMultiLine"
         tools:layout_editor_absoluteX="10dp"
         tools:layout_editor_absoluteY="-4dp" />
-</android.support.constraint.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="279dp"
+            android:layout_height="350dp"
+            android:ems="10"
+            android:hint="Add your Notes"
+            android:inputType="textMultiLine"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="58dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:layout_gravity="start"
+                android:text="B"
+                tools:layout_editor_absoluteX="320dp"
+                tools:layout_editor_absoluteY="71dp" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:text="I"
+                tools:layout_editor_absoluteX="320dp"
+                tools:layout_editor_absoluteY="142dp" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:text="BI"
+                tools:layout_editor_absoluteX="320dp"
+                tools:layout_editor_absoluteY="142dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/editText"
+        android:layout_gravity="center"
+        android:text="Save"
+        tools:layout_editor_absoluteX="16dp"
+        android:layout_marginBottom="7dp" />
+
+
+
+
+</LinearLayout>
