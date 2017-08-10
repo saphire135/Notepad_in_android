@@ -33,8 +33,12 @@ public class YourNote extends AppCompatActivity {
     Button b;
     Button i;
     Button bi;
+    Button u;
+    Button r;
 
     EncryptDecrypt encryptDecrypt = new EncryptDecrypt();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +52,10 @@ public class YourNote extends AppCompatActivity {
 
         String extraTxt = intent.getStringExtra(EXTRA_MESSAGE).toString();
         if (!extraTxt.isEmpty()) {
-            String extraText = extraTxt.substring(0, extraTxt.length() - 4);
+            String extraText = extraTxt ;
             Log.d(extraText, extraTxt);
             File path = new File(Environment.getExternalStorageDirectory(), "Notes");
-            File file = new File(path, extraTxt);
+            File file = new File(path, extraTxt + ".txt");
 
             StringBuilder text = new StringBuilder();
 
@@ -78,8 +82,11 @@ public class YourNote extends AppCompatActivity {
         b =  (Button) findViewById(R.id.button3);
         i =  (Button) findViewById(R.id.button4);
         bi =  (Button) findViewById(R.id.button5);
+        u =  (Button) findViewById(R.id.button6);
+        r =  (Button) findViewById(R.id.button7);
 
         save = (Button) findViewById(R.id.button2);
+
 
         b.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -111,6 +118,26 @@ public class YourNote extends AppCompatActivity {
             }
         });
 
+        u.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                String field = body.getText().toString();
+                if(!(field.isEmpty())){
+                    String sourceString = "<u>" + field + "</u> ";
+                    body.setText(Html.fromHtml(sourceString));
+                }
+            }
+        });
+
+        r.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                String field = body.getText().toString();
+                if(!(field.isEmpty())){
+                    String sourceString = field;
+                    body.setText(Html.fromHtml(sourceString));
+                }
+            }
+        });
+
         save.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -126,22 +153,26 @@ public class YourNote extends AppCompatActivity {
                     Log.d("savebutton is working", "to save file");
 
                     storeValues = new StoreValues(YourNote.this);
-                    boolean insert = storeValues.insertNotes(fileName,sizeOfFile);
 
                     Cursor cursor = storeValues.getAllNotes();
-
+                        int match = 0;
                     if (cursor.moveToFirst()){
                         do{
                             String getTitle = cursor.getString(cursor.getColumnIndex("title"));
+                            String get1Title = cursor.getString(cursor.getColumnIndex("createdon"));
+                            Log.d("date time" , get1Title);
+                            if(fileName.equals(getTitle)){
+                               match = 1;
+                            }
                             Log.d("Print table",getTitle);
-
-                            String getCreatedon = cursor.getString(cursor.getColumnIndex("createdon"));
-                            Log.d("Print table",getCreatedon);
-
-                            String getsize = cursor.getString(cursor.getColumnIndex("size"));
-                            Log.d("Print table",getsize);
                         }while(cursor.moveToNext());
                     }
+
+                    if(match ==1){
+                        storeValues.updateNotes(fileName,sizeOfFile);
+                    }
+                    else {storeValues.insertNotes(fileName,sizeOfFile);}
+
                     cursor.close();
 
                     Log.d("Print table",cursor.toString());

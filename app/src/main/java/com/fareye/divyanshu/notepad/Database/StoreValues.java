@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  * Created by diyanshu on 10/8/17.
  */
@@ -40,23 +42,28 @@ public class StoreValues extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    Date dNow = new Date( );
+    SimpleDateFormat ft =
+            new SimpleDateFormat ("yyyy.MM.dd hh:mm:ss");
+
+      String datetime = (ft.format(dNow));
+
     public boolean insertNotes (String title, int size) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(NOTES_TITLE, title);
-        contentValues.put(NOTES_TIME, "datetime('now', 'localtime')");
+        contentValues.put(NOTES_TIME, datetime);
         contentValues.put(NOTES_SIZE, size);
         db.insert(NOTES_TABLE_NAME, null, contentValues);
         return true;
     }
 
-    public boolean updateNotes(Integer id, String title, String time, int size) {
+    public boolean updateNotes(String title,int size) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(NOTES_TITLE, title);
-        contentValues.put(NOTES_TIME, time);
         contentValues.put(NOTES_SIZE, size);
-        db.update(NOTES_TABLE_NAME, contentValues, NOTES_ID + " = ? ", new String[] { Integer.toString(id) } );
+        db.update(NOTES_TABLE_NAME, contentValues, NOTES_TITLE + " = ? ", new String[] { title } );
         return true;
     }
 

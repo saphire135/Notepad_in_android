@@ -16,11 +16,11 @@
 
             <EditText
                 android:id="@+id/editText3"
-                android:layout_width="256dp"
+                android:layout_width="wrap_content"
                 android:layout_height="44dp"
                 app:layout_constraintRight_toLeftOf="@+id/button"
                 android:ems="10"
-                android:hint="Enter the correct password"
+                android:hint="Enter correct password"
                 android:inputType="textPassword"
                 tools:layout_editor_absoluteX="6dp"
                 tools:layout_editor_absoluteY="8dp" />
@@ -43,10 +43,10 @@
         android:id="@+id/listview"
         android:layout_width="375dp"
         android:layout_height="405dp"
-        android:scrollbars="horizontal|vertical"
+        android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@+id/editText3"
 
         tools:layout_editor_absoluteX="4dp"
         tools:layout_editor_absoluteY="63dp"
-        android:layout_weight="0.68" />
+        android:layout_weight="1" />
 </LinearLayout>

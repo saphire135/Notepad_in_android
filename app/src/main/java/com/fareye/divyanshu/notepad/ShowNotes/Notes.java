@@ -1,8 +1,8 @@
 package com.fareye.divyanshu.notepad.ShowNotes;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,9 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.fareye.divyanshu.notepad.Database.StoreValues;
 import com.fareye.divyanshu.notepad.R;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
@@ -24,6 +24,8 @@ public class Notes extends AppCompatActivity {
     Button addaNote;
     EditText password;
     ListView listView;
+    StoreValues storeValues;
+    ArrayList<String> listOfFiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,23 +37,24 @@ public class Notes extends AppCompatActivity {
         addaNote = (Button) findViewById(R.id.button);
         password = (EditText) findViewById(R.id.editText3);
 
-        String path = Environment.getExternalStorageDirectory().toString() + "/Notes";
-        Log.d("Files", "Path: " + path);
-        File directory = new File(path);
+        storeValues = new StoreValues(Notes.this);
 
-        File[] files = directory.listFiles();
-        Log.d("Files", "Size: " + files.length);
+        Cursor cursor = storeValues.getAllNotes();
+        listOfFiles = new ArrayList<>();
 
-        ArrayList<String> arrayListOfFiles = new ArrayList<String>();
-        for (int i = 0; i < files.length; i++) {
-            arrayListOfFiles.add(files[i].getName());
-            Log.d("Files", "FileName:" + files[i].getName());
+        if (cursor.moveToFirst()){
+            do{
+                String getTitle = cursor.getString(cursor.getColumnIndex("title"));
+                Log.d("Print table",getTitle);
+                listOfFiles.add(getTitle);
+            }while(cursor.moveToNext());
         }
+        cursor.close();
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
-                arrayListOfFiles);
+                listOfFiles);
 
         listView.setAdapter(arrayAdapter);
 
@@ -60,6 +63,7 @@ public class Notes extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 Intent intent = new Intent(Notes.this, YourNote.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 String entry = (String) parent.getItemAtPosition(position);
                 Log.d("ListView",entry);
                 intent.putExtra(EXTRA_MESSAGE, entry);

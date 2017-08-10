@@ -62,6 +62,22 @@
                 tools:layout_editor_absoluteX="320dp"
                 tools:layout_editor_absoluteY="142dp" />
 
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:text="U"
+                tools:layout_editor_absoluteX="320dp"
+                tools:layout_editor_absoluteY="142dp" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
+                android:text="R"
+                tools:layout_editor_absoluteX="320dp"
+                tools:layout_editor_absoluteY="142dp" />
+
         </LinearLayout>
 
     </LinearLayout>
@@ -75,8 +91,5 @@
         android:text="Save"
         tools:layout_editor_absoluteX="16dp"
         android:layout_marginBottom="7dp" />
-
-
-
 
 </LinearLayout>
